@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+<title>CMC ED Airway Toolkit</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --rwj-red: #CC0000;
+    --rwj-blue: #003087;
+    --rwj-lightblue: #0066CC;
+    --bg: #f0f2f5;
+    --surface: #ffffff;
+    --surface2: #f7f8fa;
+    --border: #e2e6ea;
+    --text: #0d1117;
+    --text2: #4a5568;
+    --text3: #8a95a3;
+    --green: #0a7c59;
+    --amber: #b45309;
+    --red: #b91c1c;
+    --shadow: 0 2px 12px rgba(0,0,0,0.08);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ─── HEADER ─── */
+  header {
+    background: var(--rwj-blue);
+    color: #fff;
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 16px rgba(0,48,135,0.3);
+  }
+  .header-top {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 20px 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .logo-block { display: flex; flex-direction: column; line-height: 1; }
+  .logo-rwj {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+  }
+  .logo-rwj span { color: var(--rwj-red); }
+  .logo-sub {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    color: rgba(255,255,255,0.65);
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+  .header-divider {
+    width: 1px; height: 36px;
+    background: rgba(255,255,255,0.2);
+  }
+  .header-title {
+    flex: 1;
+  }
+  .header-title h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    line-height: 1.1;
+  }
+  .header-title p {
+    font-size: 10px;
+    color: rgba(255,255,255,0.55);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+  .header-alert {
+    background: rgba(204,0,0,0.85);
+    padding: 7px 20px;
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .header-alert .dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: #fff;
+    animation: pulse 1.5s infinite;
+    flex-shrink: 0;
+  }
+  @keyframes pulse {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.7); }
+  }
+
+  /* ─── MAIN ─── */
+  main {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 20px 16px 40px;
+  }
+
+  /* ─── SECTION LABEL ─── */
+  .section-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text3);
+    margin: 24px 0 10px;
+    padding-left: 2px;
+  }
+  .section-label:first-child { margin-top: 4px; }
+
+  /* ─── MODULE CARDS ─── */
+  .module-grid { display: flex; flex-direction: column; gap: 10px; }
+
+  .module-card {
+    background: var(--surface);
+    border-radius: 12px;
+    border: 1.5px solid var(--border);
+    overflow: hidden;
+    cursor: pointer;
+    transition: box-shadow 0.18s, border-color 0.18s, transform 0.12s;
+    box-shadow: var(--shadow);
+  }
+  .module-card:active { transform: scale(0.985); }
+  .module-card.open { border-color: var(--rwj-blue); box-shadow: var(--shadow-lg); }
+
+  .module-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 15px 16px;
+  }
+  .module-icon {
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .module-meta { flex: 1; }
+  .module-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    color: var(--text);
+  }
+  .module-desc {
+    font-size: 12px;
+    color: var(--text2);
+    margin-top: 2px;
+    line-height: 1.4;
+  }
+  .module-chevron {
+    color: var(--text3);
+    font-size: 12px;
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+  .module-card.open .module-chevron { transform: rotate(180deg); }
+
+  /* ─── MODULE CONTENT ─── */
+  .module-content {
+    display: none;
+    border-top: 1px solid var(--border);
+    background: var(--surface2);
+  }
+  .module-card.open .module-content { display: block; }
+
+  .content-body { padding: 16px; }
+
+  /* ─── PRIORITY LIST ─── */
+  .priority-list { display: flex; flex-direction: column; gap: 8px; }
+  .priority-item {
+    background: var(--surface);
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    padding: 12px 14px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .priority-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--rwj-blue);
+    line-height: 1;
+    min-width: 24px;
+  }
+  .priority-body { flex: 1; }
+  .priority-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .priority-indication {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-top: 2px;
+  }
+  .priority-details {
+    margin-top: 6px;
+    font-size: 12px;
+    color: var(--text2);
+    line-height: 1.6;
+  }
+  .priority-detail-item { display: flex; gap: 8px; }
+  .priority-detail-item::before { content: "→"; color: var(--text3); flex-shrink: 0; }
+
+  .tag {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-top: 4px;
+  }
+
+  /* ─── STEP LIST ─── */
+  .step-list { display: flex; flex-direction: column; gap: 0; }
+  .step-item {
+    display: flex;
+    gap: 14px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .step-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .step-num-circle {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--rwj-blue);
+    color: #fff;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .step-body { flex: 1; }
+  .step-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .step-detail {
+    font-size: 12px;
+    color: var(--text2);
+    margin-top: 3px;
+    line-height: 1.5;
+  }
+  .step-warning {
+    background: #fef3c7;
+    border: 1px solid #f59e0b;
+    border-radius: 7px;
+    padding: 8px 12px;
+    font-size: 12px;
+    color: #92400e;
+    margin-top: 8px;
+    font-weight: 500;
+  }
+  .step-danger {
+    background: #fee2e2;
+    border: 1px solid #ef4444;
+    border-radius: 7px;
+    padding: 8px 12px;
+    font-size: 12px;
+    color: #991b1b;
+    margin-top: 8px;
+    font-weight: 500;
+  }
+  .step-tip {
+    background: #e0f2fe;
+    border: 1px solid #38bdf8;
+    border-radius: 7px;
+    padding: 8px 12px;
+    font-size: 12px;
+    color: #075985;
+    margin-top: 8px;
+    font-weight: 500;
+  }
+
+  /* ─── MED TABLE ─── */
+  .med-category {
+    margin-bottom: 16px;
+  }
+  .med-category-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text3);
+    margin-bottom: 6px;
+  }
+  .med-row {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 13px;
+    margin-bottom: 6px;
+  }
+  .med-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .med-dose {
+    font-size: 13px;
+    color: var(--rwj-blue);
+    font-weight: 600;
+    margin-top: 1px;
+  }
+  .med-note {
+    font-size: 11px;
+    color: var(--text2);
+    margin-top: 3px;
+    line-height: 1.4;
+  }
+
+  /* ─── BIPAP TABLE ─── */
+  .bipap-row {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 11px 13px;
+    margin-bottom: 8px;
+  }
+  .bipap-device {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .bipap-setting-tag {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    background: #dbeafe;
+    color: var(--rwj-blue);
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+  .bipap-settings {
+    font-size: 12px;
+    color: var(--text2);
+    margin-top: 5px;
+    line-height: 1.6;
+  }
+  .bipap-settings span { font-weight: 600; color: var(--text); }
+
+  /* ─── HELIOX ─── */
+  .heliox-ratio {
+    display: flex;
+    gap: 8px;
+    margin: 10px 0;
+  }
+  .heliox-box {
+    flex: 1;
+    border-radius: 10px;
+    padding: 12px;
+    text-align: center;
+    border: 1.5px solid;
+  }
+  .heliox-box .ratio { font-family: 'Barlow Condensed', sans-serif; font-size: 24px; font-weight: 800; }
+  .heliox-box .ratio-label { font-size: 10px; font-weight: 600; letter-spacing: 1px; margin-top: 2px; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 0 16px 30px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--text3);
+    line-height: 1.7;
+  }
+  footer strong { color: var(--text2); }
+
+  /* ─── BADGE COLORS ─── */
+  .badge-green { background: #d1fae5; color: var(--green); }
+  .badge-blue { background: #dbeafe; color: var(--rwj-blue); }
+  .badge-amber { background: #fef3c7; color: var(--amber); }
+  .badge-red { background: #fee2e2; color: var(--red); }
+  .badge-gray { background: #f1f5f9; color: #475569; }
+  .badge-purple { background: #ede9fe; color: #6d28d9; }
+
+  .icon-bg-blue { background: #dbeafe; }
+  .icon-bg-green { background: #d1fae5; }
+  .icon-bg-red { background: #fee2e2; }
+  .icon-bg-amber { background: #fef3c7; }
+  .icon-bg-purple { background: #ede9fe; }
+  .icon-bg-slate { background: #f1f5f9; }
+  .icon-bg-teal { background: #ccfbf1; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <div class="logo-block">
+      <div class="logo-rwj">RWJ<span>B</span>arnabas</div>
+      <div class="logo-sub">Community Medical Center</div>
+    </div>
+    <div class="header-divider"></div>
+    <div class="header-title">
+      <h1>ED Airway Toolkit</h1>
+      <p>STC Failed Airway Reference</p>
+    </div>
+  </div>
+  <div class="header-alert">
+    <div class="dot"></div>
+    SpO₂ &lt; 93%: Facemask + OPA or SGA → No ETCO₂ → Surgical Airway
+  </div>
+</header>
+
+<main>
+
+  <!-- PRE-OX -->
+  <div class="section-label">Airway Management</div>
+  <div class="module-grid">
+
+    <div class="module-card" onclick="toggle(this)">
+      <div class="module-header">
+        <div class="module-icon icon-bg-blue">🫁</div>
+        <div class="module-meta">
+          <div class="module-title">Pre-Oxygenation Standardization</div>
+          <div class="module-desc">Priority-based pre-ox hierarchy by clinical scenario</div>
+        </div>
+        <div class="module-chevron">▼</div>
+      </div>
+      <div class="module-content">
+        <div class="content-body">
+          <div class="priority-list">
+
+            <div class="priority-item">
+              <div class="priority-num">1</div>
+              <div class="priority-body">
+                <div class="priority-name">BiPAP / CPAP</div>
+                <div class="priority-indication" style="color: var(--green);">▸ CHF · COPD · Cooperative patient</div>
+                <div class="tag badge-green">First Line — PerIOx Trial</div>
+                <div class="priority-details">
+                  <div class="priority-detail-item">Target SpO₂ ≥95% before laryngoscopy</div>
+                  <div class="priority-detail-item">Servo U (Rooms 15, 16, 27) — BiPAP + HFNC capable</div>
+                  <div class="priority-detail-item">If agitated → DSI first, then BiPAP</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="priority-item">
+              <div class="priority-num">2</div>
+              <div class="priority-body">
+                <div class="priority-name">High-Flow Nasal Cannula</div>
+                <div class="priority-indication" style="color: var(--rwj-lightblue);">▸ BiPAP not tolerated · Apneic oxygenation during attempts</div>
+                <div class="tag badge-blue">Second Line</div>
+                <div class="priority-details">
+                  <div class="priority-detail-item">40–60 L/min adults; leave in place during laryngoscopy</div>
+                  <div class="priority-detail-item">Run concurrently with BiPAP if tolerated</div>
+                  <div class="priority-detail-item">Servo U supports HFNC mode</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="priority-item">
+              <div class="priority-num">3</div>
+              <div class="priority-body">
+                <div class="priority-name">NRB + Nasal Cannula</div>
+                <div class="priority-indication" style="color: var(--amber);">▸ NIPPV not tolerated · Obtunded but breathing</div>
+                <div class="tag badge-amber">Alternative</div>
+                <div class="priority-details">
+                  <div class="priority-detail-item">NRB at 15 L/min + NC at max flow (15 L/min)</div>
+                  <div class="priority-detail-item">Consider DSI (ketamine) → then place BiPAP</div>
+                  <div class="priority-detail-item">NC remains in place during intubation</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="priority-item">
+              <div class="priority-num">4</div>
+              <div class="priority-body">
+                <div class="priority-name">BVM + NC + PEEP Valve</div>
+                <div class="priority-indication" style="color: var(--red);">▸ Peri-arrest · Apneic · Pre-arrest respiratory failure</div>
+                <div class="tag badge-red">Rescue / Bridge</div>
+                <div class="priority-details">
+                  <div class="priority-detail-item">NC at max flow (15 L/min) flush under mask</div>
+                  <div class="priority-detail-item">PEEP valve 5–10 cmH₂O on BVM</div>
+                  <div class="priority-detail-item">Two-person BVM technique preferred</div>
+                  <div class="priority-detail-item">Bridge to BiPAP or intubation as rapidly as possible</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DSI -->
+    <div class="module-card" onclick="toggle(this)">
+      <div class="module-header">
+        <div class="module-icon icon-bg-purple">💉</div>
+        <div class="module-meta">
+          <div class="module-title">Delayed Sequence Intubation (DSI)</div>
+          <div class="module-desc">Ketamine-assisted pre-oxygenation for agitated patients</div>
+        </div>
+        <div class="module-chevron">▼</div>
+      </div>
+      <div class="module-content">
+        <div class="content-body">
+          <div class="step-warning">⚠ Use when agitation or combativeness prevents adequate pre-oxygenation</div>
+          <br/>
+          <div class="step-list">
+            <div class="step-item">
+              <div class="step-num-circle">1</div>
+              <div class="step-body">
+                <div class="step-title">Administer Ketamine</div>
+                <div class="step-detail">1–2 mg/kg IV or 4–5 mg/kg IM — dissociative dose<br/>Patient maintains airway reflexes and respiratory drive</div>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num-circle">2</div>
+              <div class="step-body">
+                <div class="step-title">Place BiPAP or HFNC</div>
+                <div class="step-detail">Now cooperative — apply preferred pre-ox modality<br/>Allow 3–5 minutes of optimization</div>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num-circle">3</div>
+              <div class="step-body">
+                <div class="step-title">Confirm SpO₂ Optimized</div>
+                <div class="step-detail">Target ≥95% before proceeding</div>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num-circle">4</div>
+              <div class="step-body">
+                <div class="step-title">Proceed with Standard RSI</div>
+                <div class="step-detail">Succinylcholine 1.5 mg/kg or Rocuronium 1.2 mg/kg IV push<br/>Paralytic as per standard protocol</div>
+              </div>
+            </div>
+          </div>
+          <div class="step-tip" style="margin-top:12px;">💡 Ketamine given during DSI counts toward your induction agent — adjust accordingly</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HELIOX -->
+    <div class="module-card" onclick="toggle(this)">
+      <div class="module-header">
+        <div class="module-icon icon-bg-teal">🌬</div>
+        <div class="module-meta">
+          <div class="module-title">Heliox Therapy</div>
+          <div class="module-desc">Severe bronchospasm · Asthma · COPD with high obstruction</div>
+        </div>
+        <div class="module-chevron">▼</div>
+      </div>
+      <div class="module-content">
+        <div class="content-body">
+          <div class="heliox-ratio">
+            <div class="heliox-box" style="border-color: var(--rwj-blue); background: #dbeafe;">
+              <div class="ratio" style="color: var(--rwj-blue);">80/20</div>
+              <div class="ratio-label" style="color: var(--rwj-blue);">START HERE<br/>He / O₂</div>
+            </div>
+            <div style="display:flex;align-items:center;font-size:20px;color:var(--text3);">→</div>
+            <div class="heliox-box" style="border-color: #f59e0b; background: #fef3c7;">
+              <div class="ratio" style="color: #b45309;">60/40</div>
+              <div class="ratio-label" style="color: #b45309;">CEILING<br/>He / O₂</div>
+            </div>
+            <div style="display:flex;align-items:center;font-size:20px;color:var(--text3);">→</div>
+            <div class="heliox-box" style="border-color: #ef4444; background: #fee2e2;">
+              <div class="ratio" style="color: #991b1b;">&lt;60/40</div>
+              <div class="ratio-label" style="color: #991b1b;">FAILED<br/>THERAPY</div>
+            </div>
+          </div>
+          <div class="step-list">
+            <div class="step-item">
+              <div class="step-num-circle">1</div>
+              <div class="step-body">
+                <div class="step-title">Indications</div>
+                <div class="step-detail">Severe bronchospasm not responding to initial therapy · High peak pressures / auto-PEEP on ventilator · Bridge while escalating treatment</div>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num-circle">2</div>
+              <div class="step-body">
+                <div class="step-title">Setup</div>
+                <div class="step-detail">H-cylinder + blender in ED — target &lt;5 min setup<br/>Pending: second tank dedicated to ED (Robert Day approval req'd for storage)</div>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num-circle">3</div>
+              <div class="step-body">
+                <div class="step-title">Titrate</div>
+                <div class="step-detail">Start 80/20 · Titrate toward 60/40 as FiO₂ requirements increase · Beyond 60/40 = failed therapy</div>
+              </div>
+            </div>
+          </div>
+          <div class="step-warning" style="margin-top:12px;">Used ~5×/year for adults. Contact Respiratory Therapy to set up.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AINTREE -->
+    <div class="module-card" onclick="toggle(this)">
+      <div class="module-header">
+        <div class="module-icon icon-bg-green">🔬</div>
+        <div class="module-meta">
+          <div class="module-title">Aintree Catheter Walkthrough</div>
+          <div class="module-desc">Intubation through iGel via Aintree + fiberoptic</div>
+        </div>
+        <div class="module-chevron">▼</div>
+      </div>
+      <div class="module-content">
+        <div class="content-body">
+          <div class="step-tip">Use after 3 min DeNitro with Good SpO₂ via iGel — or when direct laryngoscopy has failed ×3</div>
+          <br/>
+          <div class="step-list">
+            <div class="step-item">
+              <div class="step-num-circle">1</div>
+              <div class="step-body">
+                <div class="step-title">Place iGel (if not already in)</div>
+                <div class="step-detail">Size by weight — confirm ventilation and ETCO₂<br/>Secure in place; do not advance ET tube yet</div>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num-circle">2</div>
+              <div class="step-body">
+                <div class="step-title">Load Aintree Catheter onto Bronchoscope</div>
+                <div class="step-detail">Thread Aintree catheter over the flexible bronchoscope (purple B-Flex glidescope bronchoscope fits)<br/>Catheter is 2× length of ET tube — prevents loss of introducer</div>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num-circle">3</div>
+              <div class="step-body">
+                <div class="step-title">Advance Bronchoscope Through iGel into Trachea</div>
+                <div class="step-detail">Navigate scope through iGel lumen → glottis → trachea<br/>Confirm carina and tracheal rings on scope view</div>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num-circle">4</div>
+              <div class="step-body">
+                <div class="step-title">Advance Aintree Catheter; Remove Scope</div>
+                <div class="step-detail">Hold Aintree in position — withdraw bronchoscope while keeping catheter in trachea</div>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num-circle">5</div>
+              <div class="step-body">
+                <div class="step-title">Remove iGel</div>
+                <div class="step-detail">Carefully remove supraglottic airway while maintaining Aintree position in trachea<br/><strong>Do not lose the Aintree catheter!</strong></div>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num-circle">6</div>
+              <div class="step-body">
+                <div class="step-title">Thread ET Tube Over Aintree</div>
+                <div class="step-detail">Size 6.0 ET tube minimum (limited by iGel inner diameter)<br/>Advance ET tube over catheter into trachea; remove Aintree</div>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num-circle">7</div>
+              <div class="step-body">
+                <div class="step-title">Confirm Placement</div>
+                <div class="step-detail">Continuous waveform capnography · Bilateral breath sounds · CXR when stabilized</div>
+              </div>
+            </div>
+          </div>
+          <div class="step-warning" style="margin-top:12px;">⚠ Training: Practice with airway mannequins + iGel devices in airway closet before clinical use</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NEEDLE JET -->
+    <div class="module-card" onclick="toggle(this)">
+      <div class="module-header">
+        <div class="module-icon icon-bg-red">🩸</div>
+        <div class="module-meta">
+          <div class="module-title">Needle Jet Insufflation</div>
+          <div class="module-desc">Cannot intubate / Cannot oxygenate rescue — last resort</div>
+        </div>
+        <div class="module-chevron">▼</div>
+      </div>
+      <div class="module-content">
+        <div class="content-body">
+          <div class="step-danger">🚨 CICO Situation — Use only when cricothyrotomy not immediately possible or as bridge</div>
+          <br/>
+          <div class="step-list">
+            <div class="step-item">
+              <div class="step-num-circle">1</div>
+              <div class="step-body">
+                <div class="step-title">Identify Cricothyroid Membrane</div>
+                <div class="step-detail">Extend neck · Palpate thyroid cartilage → inferior notch → CTM soft spot<br/>Use ultrasound if landmark unclear</div>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num-circle">2</div>
+              <div class="step-body">
+                <div class="step-title">Insert 14g Angiocath</div>
+                <div class="step-detail">45° caudal angle through CTM · Aspirate air to confirm tracheal position<br/>Remove needle — advance catheter only</div>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num-circle">3</div>
+              <div class="step-body">
+                <div class="step-title">Attach High-Pressure Oxygen Source</div>
+                <div class="step-detail">Y-connector or 3mL syringe barrel + 15mm ET tube adapter<br/>Wall O₂ at 15 L/min or jet ventilator if available</div>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num-circle">4</div>
+              <div class="step-body">
+                <div class="step-title">Ventilate: 1 sec IN / 4 sec OUT</div>
+                <div class="step-detail">Occlude Y-port 1 second → release 4 seconds<br/>Watch for chest rise; allow full passive exhalation</div>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num-circle">5</div>
+              <div class="step-body">
+                <div class="step-title">Proceed to Definitive Surgical Airway</div>
+                <div class="step-detail">Needle jet is a bridge — target &lt;45 min before hypercarbia · Escalate to cricothyrotomy or call thoracic surgery immediately</div>
+              </div>
+            </div>
+          </div>
+          <div class="step-warning" style="margin-top:12px;">⚠ Risk of barotrauma if expiration obstructed. Ensure upper airway partially patent for exhalation.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- MEDICATIONS -->
+  <div class="section-label">Pharmacology</div>
+  <div class="module-grid">
+
+    <div class="module-card" onclick="toggle(this)">
+      <div class="module-header">
+        <div class="module-icon icon-bg-amber">💊</div>
+        <div class="module-meta">
+          <div class="module-title">Medications Reference</div>
+          <div class="module-desc">RSI agents, paralytics, push-dose pressors</div>
+        </div>
+        <div class="module-chevron">▼</div>
+      </div>
+      <div class="module-content">
+        <div class="content-body">
+
+          <div class="med-category">
+            <div class="med-category-label">Induction Agents</div>
+            <div class="med-row">
+              <div class="med-name">Ketamine</div>
+              <div class="med-dose">1–2 mg/kg IV · 4–5 mg/kg IM (DSI/dissociative)</div>
+              <div class="med-note">Preferred in hypotension, bronchospasm, or combative patient. Maintains airway reflexes at sub-dissociative dose.</div>
+            </div>
+            <div class="med-row">
+              <div class="med-name">Etomidate</div>
+              <div class="med-dose">0.3 mg/kg IV</div>
+              <div class="med-note">Hemodynamically neutral. Single dose adrenal suppression — avoid in septic shock if alternatives available.</div>
+            </div>
+            <div class="med-row">
+              <div class="med-name">Propofol</div>
+              <div class="med-dose">1–2 mg/kg IV (reduce in elderly/hypotension)</div>
+              <div class="med-note">Caution: significant hypotension. Reserve for normotensive, well-resuscitated patients.</div>
+            </div>
+          </div>
+
+          <div class="med-category">
+            <div class="med-category-label">Paralytics</div>
+            <div class="med-row">
+              <div class="med-name">Succinylcholine</div>
+              <div class="med-dose">1.5 mg/kg IV</div>
+              <div class="med-note">Onset ~45–60s, duration ~10 min. Avoid: hyperkalemia, burn >24h, crush injury >24h, denervating disease.</div>
+            </div>
+            <div class="med-row">
+              <div class="med-name">Rocuronium</div>
+              <div class="med-dose">1.2 mg/kg IV (RSI dose)</div>
+              <div class="med-note">Onset ~60s at RSI dose, duration 60–90 min. Reversible with Sugammadex 16 mg/kg.</div>
+            </div>
+          </div>
+
+          <div class="med-category">
+            <div class="med-category-label">Push-Dose Pressors (Peri-intubation)</div>
+            <div class="med-row">
+              <div class="med-name">Epinephrine (push-dose)</div>
+              <div class="med-dose">10–20 mcg IV q2–5min</div>
+              <div class="med-note">Dilute: 1 mg/10mL → take 1mL + 9mL NS = 10 mcg/mL. Use for peri-intubation hemodynamic collapse.</div>
+            </div>
+            <div class="med-row">
+              <div class="med-name">Phenylephrine (push-dose)</div>
+              <div class="med-dose">100–200 mcg IV q5min</div>
+              <div class="med-note">Pure alpha — good for tachycardic hypotension. No chronotropy.</div>
+            </div>
+          </div>
+
+          <div class="med-category">
+            <div class="med-category-label">Post-Intubation Sedation</div>
+            <div class="med-row">
+              <div class="med-name">Propofol infusion</div>
+              <div class="med-dose">5–50 mcg/kg/min</div>
+              <div class="med-note">Titrate to RASS –2 to –3. Monitor triglycerides if >48h.</div>
+            </div>
+            <div class="med-row">
+              <div class="med-name">Fentanyl infusion</div>
+              <div class="med-dose">25–200 mcg/hr</div>
+              <div class="med-note">Analgesia-first approach. Co-administer with sedation.</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- EQUIPMENT -->
+  <div class="section-label">Equipment & Settings</div>
+  <div class="module-grid">
+
+    <div class="module-card" onclick="toggle(this)">
+      <div class="module-header">
+        <div class="module-icon icon-bg-slate">⚙️</div>
+        <div class="module-meta">
+          <div class="module-title">BiPAP Options & Settings</div>
+          <div class="module-desc">Device selection, starting settings, and clinical targets</div>
+        </div>
+        <div class="module-chevron">▼</div>
+      </div>
+      <div class="module-content">
+        <div class="content-body">
+
+          <div class="med-category-label" style="margin-bottom:8px;">Available Devices</div>
+
+          <div class="bipap-row">
+            <div class="bipap-device">
+              Servo U Ventilator
+              <span class="bipap-setting-tag">PREFERRED</span>
+            </div>
+            <div class="bipap-settings">
+              Locations: <span>Rooms 15, 16, 27</span><br/>
+              Modes: <span>BiPAP · CPAP · HFNC · Full MV</span><br/>
+              Starting IPAP: <span>10–14 cmH₂O</span> · EPAP: <span>5–8 cmH₂O</span><br/>
+              FiO₂: Titrate to SpO₂ ≥94%
+            </div>
+          </div>
+
+          <div class="bipap-row">
+            <div class="bipap-device">
+              Trilogy / Philips BiPAP
+              <span class="bipap-setting-tag" style="background:#f3e8ff;color:#7c3aed;">BACKUP</span>
+            </div>
+            <div class="bipap-settings">
+              Starting IPAP: <span>10 cmH₂O</span> · EPAP: <span>5 cmH₂O</span><br/>
+              Titrate IPAP in 2 cmH₂O increments for WOB / SpO₂<br/>
+              Max IPAP typically <span>20 cmH₂O</span> before escalating
+            </div>
+          </div>
+
+          <div class="step-list" style="margin-top:14px;">
+            <div class="step-item">
+              <div class="step-num-circle" style="background:#0a7c59;">✓</div>
+              <div class="step-body">
+                <div class="step-title">CHF — Pulmonary Edema</div>
+                <div class="step-detail">CPAP 5–10 cmH₂O or BiPAP IPAP 12/EPAP 5<br/>High FiO₂ initially; titrate down rapidly</div>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num-circle" style="background:#0a7c59;">✓</div>
+              <div class="step-body">
+                <div class="step-title">COPD Exacerbation</div>
+                <div class="step-detail">BiPAP IPAP 10–14 / EPAP 4–5<br/>Target SpO₂ 88–92%; avoid over-oxygenation</div>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num-circle" style="background:#b45309;">!</div>
+              <div class="step-body">
+                <div class="step-title">Contraindications</div>
+                <div class="step-detail">Unable to protect airway · Vomiting · Facial trauma · Hemodynamic instability without correction · Respiratory arrest</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<footer>
+  <strong>RWJBarnabas Health — Community Medical Center ED</strong><br/>
+  STC Failed Airway Protocol · Ref: Anesth Analg 2009;109:866<br/>
+  For clinical reference only. Verify with current protocols.<br/>
+  <span style="font-size:10px;">Last updated: 2025 · Contact ED Medical Director for updates</span>
+</footer>
+
+<script>
+  function toggle(card) {
+    const isOpen = card.classList.contains('open');
+    document.querySelectorAll('.module-card.open').forEach(c => c.classList.remove('open'));
+    if (!isOpen) card.classList.add('open');
+  }
+</script>
+</body>
+</html>
