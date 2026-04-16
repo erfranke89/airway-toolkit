@@ -16,9 +16,9 @@
   --orange: #ea580c;
   --purple: #7c3aed;
   --teal: #0d9488;
-  --bg: #f0f2f5;
+  --bg: #ffffff;
   --surface: #ffffff;
-  --surface2: #f7f8fa;
+  --surface2: #ffffff;
   --border: #dde1e7;
   --text: #0d1117;
   --text2: #4a5568;
@@ -105,19 +105,24 @@ header {
 /* ── PAGES ─────────────────────────────────────── */
 .page { display: none; }
 .page.active { display: block; }
-.page-inner { max-width: 680px; margin: 0 auto; padding: 24px 18px 48px; }
+.page-inner { max-width: 680px; margin: 0 auto; padding: 24px 18px 48px; background: #ffffff; }
 
 /* ── PAGE HEADING ─────────────────────────────── */
 .page-heading {
   margin-bottom: 22px;
-  padding-bottom: 16px;
-  border-bottom: 2px solid var(--border);
+  padding: 16px 18px;
+  border-left: 5px solid var(--blue);
+  background: #f0f4ff;
+  border-radius: 0 10px 10px 0;
+  border-top: 1px solid #c7d5f5;
+  border-bottom: 1px solid #c7d5f5;
+  border-right: 1px solid #c7d5f5;
 }
 .page-heading h2 {
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 30px;
   font-weight: 800;
-  color: var(--text);
+  color: var(--blue);
   line-height: 1;
   letter-spacing: -0.3px;
 }
@@ -185,19 +190,20 @@ header {
   display: none;
   border-top: 1.5px solid var(--border);
   padding: 20px 20px 22px;
-  background: var(--surface2);
+  background: #ffffff;
 }
 .card.open .card-body { display: block; }
 
 /* ── PRIORITY LIST ────────────────────────────── */
 .priority-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 4px; }
 .priority-item {
-  background: var(--surface);
+  background: #ffffff;
   border-radius: 12px;
-  border: 1px solid var(--border);
+  border: 1.5px solid var(--border);
   padding: 14px 16px;
   display: flex;
   gap: 14px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
 }
 .p-num {
   font-family: 'Barlow Condensed', sans-serif;
@@ -273,11 +279,15 @@ header {
 .step-item {
   display: flex;
   gap: 16px;
-  padding: 12px 0;
-  border-bottom: 1px solid var(--border);
+  padding: 14px 16px;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  background: #ffffff;
+  margin-bottom: 8px;
   align-items: flex-start;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
 }
-.step-item:last-child { border-bottom: none; padding-bottom: 0; }
+.step-item:last-child { margin-bottom: 0; }
 .step-n {
   width: 28px; height: 28px;
   border-radius: 50%;
@@ -365,7 +375,7 @@ header {
 }
 
 /* ── HELIOX RATIO ──────────────────────────────── */
-.heliox-ratio { display: flex; gap: 8px; margin: 14px 0; }
+.heliox-ratio { display: flex; gap: 8px; margin: 14px 0; background: #fff; }
 .heliox-box {
   flex: 1;
   border-radius: 10px;
@@ -408,11 +418,12 @@ header {
 .flow-arrow { color: #86efac; font-size: 18px; }
 
 .mnemonic-card {
-  background: var(--surface);
+  background: #ffffff;
   border-radius: 12px;
-  border: 1px solid var(--border);
+  border: 1.5px solid var(--border);
   overflow: hidden;
   margin-bottom: 12px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.06);
 }
 .mnemonic-header {
   display: flex; align-items: center; gap: 12px;
@@ -663,7 +674,7 @@ header {
   </div>
 
   <div class="section-label">Quick Comparison</div>
-  <div style="overflow-x:auto;border-radius:10px;border:1px solid var(--border);background:var(--surface);">
+  <div style="overflow-x:auto;border-radius:10px;border:1.5px solid var(--border);background:#ffffff;box-shadow:0 1px 4px rgba(0,0,0,0.05);">
     <table class="comp-table">
       <thead><tr><th>Mnemonic</th><th>Focus</th><th>Strength</th></tr></thead>
       <tbody>
