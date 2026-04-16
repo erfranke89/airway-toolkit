@@ -32,86 +32,75 @@ body { font-family: 'Barlow', sans-serif; background: var(--bg); color: var(--te
 
 /* ── HEADER ─────────────────────────────────────── */
 header {
-  background: var(--blue);
-  color: #fff;
+  background: #ffffff;
+  color: var(--text);
   position: sticky;
   top: 0;
   z-index: 200;
-  box-shadow: 0 2px 20px rgba(0,48,135,0.35);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+  border-bottom: 1px solid var(--border);
 }
 .header-main {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 20px 10px;
+  padding: 12px 18px 10px;
 }
 .header-left { display: flex; align-items: center; gap: 14px; }
-.logo-block { line-height: 1.15; }
-.logo-name { font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 800; letter-spacing: 0.2px; }
-.logo-sub { font-size: 10px; font-weight: 600; letter-spacing: 1.5px; color: rgba(255,255,255,0.55); text-transform: uppercase; }
-.header-divider { width: 1px; height: 38px; background: rgba(255,255,255,0.2); }
-.header-title h1 { font-family: 'Barlow Condensed', sans-serif; font-size: 24px; font-weight: 800; line-height: 1; letter-spacing: 0.2px; }
-.header-title p { font-size: 10px; color: rgba(255,255,255,0.5); letter-spacing: 1px; text-transform: uppercase; margin-top: 3px; }
-.font-controls { display: flex; gap: 6px; }
-.font-btn {
-  background: rgba(255,255,255,0.12);
-  border: 1px solid rgba(255,255,255,0.25);
-  color: #fff;
-  border-radius: 7px;
-  padding: 6px 12px;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: background 0.15s;
-  letter-spacing: 0.5px;
-}
-.font-btn:hover { background: rgba(255,255,255,0.22); }
+.logo-block { line-height: 1.2; }
+.logo-name { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 800; color: var(--blue); letter-spacing: 0.2px; }
+.logo-sub { font-size: 10px; font-weight: 600; letter-spacing: 1.5px; color: var(--text3); text-transform: uppercase; }
+.header-divider { width: 1px; height: 38px; background: var(--border); }
+.header-title h1 { font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 800; line-height: 1; color: var(--text); letter-spacing: 0.2px; }
+.header-title p { font-size: 10px; color: var(--text3); letter-spacing: 1px; text-transform: uppercase; margin-top: 3px; }
+
 .version-bar {
-  background: var(--red);
-  padding: 5px 20px;
+  background: var(--blue);
+  padding: 5px 18px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-top: 1px solid rgba(255,255,255,0.1);
 }
 .version-bar span {
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 1px;
-  color: rgba(255,255,255,0.75);
+  color: rgba(255,255,255,0.8);
   text-transform: uppercase;
 }
 
 /* ── TAB NAV ─────────────────────────────────────── */
 .tab-nav {
-  background: var(--blue);
+  background: #f8fafc;
   display: flex;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
-  border-top: 1px solid rgba(255,255,255,0.1);
+  border-top: 1px solid var(--border);
+  border-bottom: 2px solid var(--border);
 }
 .tab-nav::-webkit-scrollbar { display: none; }
 .tab-btn {
   flex-shrink: 0;
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
   letter-spacing: 0.5px;
-  color: rgba(255,255,255,0.6);
+  color: var(--text2);
   background: none;
   border: none;
   border-bottom: 3px solid transparent;
-  padding: 12px 16px 10px;
+  padding: 13px 18px 11px;
   cursor: pointer;
-  transition: color 0.15s, border-color 0.15s;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
   text-transform: uppercase;
   white-space: nowrap;
 }
-.tab-btn:hover { color: rgba(255,255,255,0.85); }
-.tab-btn:active { background: rgba(255,255,255,0.1); }
-.tab-btn.active { color: #fff; border-bottom-color: var(--red); }
+.tab-btn:hover { color: var(--blue); background: rgba(0,48,135,0.04); }
+.tab-btn:active { background: rgba(0,48,135,0.08); }
+.tab-btn.active { color: var(--blue); border-bottom-color: var(--red); font-weight: 800; background: #fff; }
 
 /* ── PAGES ─────────────────────────────────────── */
 .page { display: none; }
@@ -554,13 +543,12 @@ header {
   .step-detail { font-size: 13px; }
   .p-name { font-size: 16px; }
   .p-num { font-size: 26px; }
-  .tab-btn { font-size: 12px; padding: 12px 14px 10px; }
+  .tab-btn { font-size: 14px; padding: 12px 14px 10px; }
   .page-inner { padding: 18px 14px 48px; }
   .card-body { padding: 16px 14px 18px; }
   .priority-item { padding: 12px 13px; }
   .heliox-box .ratio { font-size: 24px; }
   .heliox-box { padding: 10px; }
-  .font-btn { padding: 6px 10px; font-size: 13px; }
   .logo-name { font-size: 13px; }
   .video-link { padding: 11px 12px; }
   .mnemonic-letter { font-size: 20px; }
@@ -585,10 +573,7 @@ header {
         <p>STC Algorithm Reference</p>
       </div>
     </div>
-    <div class="font-controls">
-      <button class="font-btn" onclick="adjustFont(-1)">A−</button>
-      <button class="font-btn" onclick="adjustFont(1)">A+</button>
-    </div>
+
   </div>
   <div class="version-bar">
     <span>ED Difficult Airway Algorithm</span>
@@ -1190,12 +1175,7 @@ function showTab(id, btn) {
   window.scrollTo(0, 0);
 }
 
-// ── FONT SIZE ─────────────────────────────────────
-let fontScale = 1.0;
-function adjustFont(dir) {
-  fontScale = Math.min(1.35, Math.max(0.8, fontScale + dir * 0.08));
-  document.body.style.fontSize = (fontScale * 16) + 'px';
-}
+
 
 // ── CHECKLIST ─────────────────────────────────────
 const clData = {
