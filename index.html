@@ -599,6 +599,7 @@ header {
     <button class="tab-btn" onclick="showTab('cric',this)">Cricothyrotomy</button>
     <button class="tab-btn" onclick="showTab('needle',this)">Needle Jet</button>
     <button class="tab-btn" onclick="showTab('checklist',this)">RSI Checklist</button>
+    <button class="tab-btn" onclick="showTab('whoto',this)">Who to Call?</button>
   </nav>
 </header>
 
@@ -670,6 +671,24 @@ header {
       <div class="mnemonic-row"><span class="mnemonic-letter" style="color:#d97706">M</span><div><strong>Monitors</strong> — pulse ox, cardiac, BP, ETCO₂ all active</div></div>
       <div class="mnemonic-row"><span class="mnemonic-letter" style="color:#d97706">E</span><div><strong>Extra Equipment</strong> — bougie, iGel/LMA, surgical airway kit at bedside</div></div>
       <div class="mnemonic-key" style="background:#fffbeb;color:#92400e;">🔑 "Do I physically have everything I need?"</div>
+    </div>
+  </div>
+
+
+  <div style="background:#fff;border:1.5px solid #003087;border-left:5px solid #003087;border-radius:10px;padding:16px 18px;margin-bottom:18px;box-shadow:0 1px 6px rgba(0,48,135,0.08);">
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:800;color:#003087;margin-bottom:10px;">&#x1FA9D; Bougie Standard</div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div style="display:flex;gap:12px;align-items:flex-start;">
+        <span style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;color:#003087;min-width:24px;line-height:1;">1</span>
+        <div style="font-size:14px;"><strong>Bougie loaded as primary stylet — every intubation</strong><br/><span style="color:#4a5568;font-size:13px;">Load the bougie through the ET tube before every attempt. Replace the rigid stylet as your default. Gives immediate tactile feedback with a rescue tool already in position.</span></div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;">
+        <span style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;color:#003087;min-width:24px;line-height:1;">2</span>
+        <div style="font-size:14px;"><strong>Poor view? Bougie before you give up</strong><br/><span style="color:#4a5568;font-size:13px;">Grade III/IV view or any uncertainty — pass the bougie, feel for tracheal clicks and hold-up sign, then railroad the tube. Do not change blades first.</span></div>
+      </div>
+    </div>
+    <div style="margin-top:12px;background:#eff6ff;border-radius:7px;padding:9px 13px;font-size:13px;color:#1e40af;font-weight:500;">
+      &#x1F511; The bougie is not a rescue device — it is your <strong>primary stylet</strong>. Every intubation, every time.
     </div>
   </div>
 
@@ -1278,5 +1297,89 @@ function resetChecklist() {
 }
 buildChecklist();
 </script>
+
+<div class="page" id="page-whoto">
+<div class="page-inner">
+  <div class="page-heading">
+    <h2>Who to Call?</h2>
+    <p>Early activation saves time — know before you need them</p>
+  </div>
+
+  <div style="background:#fff;border:1.5px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:14px;box-shadow:0 1px 6px rgba(0,0,0,0.06);">
+    <div style="background:#eff6ff;border-bottom:1.5px solid #bfdbfe;padding:14px 18px;display:flex;align-items:center;gap:12px;">
+      <span style="font-size:24px;">&#x1F9BA;</span>
+      <div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:800;color:#1e40af;">Anesthesia</div>
+        <div style="font-size:13px;color:#3b82f6;font-weight:500;">Consider early — not a mandate. ED physician judgment always applies.</div>
+      </div>
+    </div>
+    <div style="padding:16px 18px;">
+
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#8a95a3;margin-bottom:8px;">Airway Anatomy / Assessment</div>
+      <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:14px;">
+        <div style="display:flex;gap:10px;font-size:13px;background:#f8fafc;border:1px solid #e2e6ea;border-radius:8px;padding:10px 13px;line-height:1.45;"><span style="color:#2563eb;flex-shrink:0;font-weight:700;">&#9658;</span>Anticipated difficult airway by clinical assessment (e.g. BMI &gt; 40)</div>
+        <div style="display:flex;gap:10px;font-size:13px;background:#f8fafc;border:1px solid #e2e6ea;border-radius:8px;padding:10px 13px;line-height:1.45;"><span style="color:#2563eb;flex-shrink:0;font-weight:700;">&#9658;</span>Known or previously documented difficult airway</div>
+        <div style="display:flex;gap:10px;font-size:13px;background:#f8fafc;border:1px solid #e2e6ea;border-radius:8px;padding:10px 13px;line-height:1.45;"><span style="color:#2563eb;flex-shrink:0;font-weight:700;">&#9658;</span>Significant facial, neck, or upper airway trauma or distortion · history of neck radiation</div>
+        <div style="display:flex;gap:10px;font-size:13px;background:#f8fafc;border:1px solid #e2e6ea;border-radius:8px;padding:10px 13px;line-height:1.45;"><span style="color:#2563eb;flex-shrink:0;font-weight:700;">&#9658;</span>Inability to open mouth or severe trismus</div>
+      </div>
+
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#8a95a3;margin-bottom:8px;">Physiologic Instability</div>
+      <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:14px;">
+        <div style="display:flex;gap:10px;font-size:13px;background:#fff7ed;border:1px solid #fed7aa;border-radius:8px;padding:10px 13px;line-height:1.45;"><span style="color:#ea580c;flex-shrink:0;font-weight:700;">&#9658;</span>Hemodynamic instability: MAP &lt; 65 mmHg or currently on vasopressors</div>
+        <div style="display:flex;gap:10px;font-size:13px;background:#fff7ed;border:1px solid #fed7aa;border-radius:8px;padding:10px 13px;line-height:1.45;"><span style="color:#ea580c;flex-shrink:0;font-weight:700;">&#9658;</span>Severe hypoxemia: SpO&#x2082; &lt; 85% on maximum supplemental oxygen</div>
+        <div style="display:flex;gap:10px;font-size:13px;background:#fff7ed;border:1px solid #fed7aa;border-radius:8px;padding:10px 13px;line-height:1.45;"><span style="color:#ea580c;flex-shrink:0;font-weight:700;">&#9658;</span>Suspected or known difficult mask ventilation</div>
+      </div>
+
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#8a95a3;margin-bottom:8px;">Clinical Situation</div>
+      <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:16px;">
+        <div style="display:flex;gap:10px;font-size:13px;background:#f8fafc;border:1px solid #e2e6ea;border-radius:8px;padding:10px 13px;line-height:1.45;"><span style="color:#2563eb;flex-shrink:0;font-weight:700;">&#9658;</span>High aspiration risk (active GI bleed, known full stomach, bowel obstruction)</div>
+        <div style="display:flex;gap:10px;font-size:13px;background:#f8fafc;border:1px solid #e2e6ea;border-radius:8px;padding:10px 13px;line-height:1.45;"><span style="color:#2563eb;flex-shrink:0;font-weight:700;">&#9658;</span>Awake intubation technique required</div>
+        <div style="display:flex;gap:10px;font-size:13px;background:#f8fafc;border:1px solid #e2e6ea;border-radius:8px;padding:10px 13px;line-height:1.45;"><span style="color:#2563eb;flex-shrink:0;font-weight:700;">&#9658;</span>Clinical judgment of any provider that anesthesia expertise would benefit the patient</div>
+      </div>
+
+      <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:11px 14px;font-size:13px;color:#1e40af;font-weight:500;">
+        &#x1F511; When in doubt — call early. Anesthesia would rather be cancelled than called too late.
+      </div>
+      <div style="margin-top:12px;display:flex;align-items:center;gap:12px;background:#f0fdf4;border:1.5px solid #86efac;border-radius:8px;padding:12px 16px;">
+        <span style="font-size:22px;">&#x1F4DE;</span>
+        <div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#166534;margin-bottom:2px;">Activation</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;color:#166534;letter-spacing:0.5px;">732-439-6934</div>
+          <div style="font-size:11px;color:#4a5568;margin-top:1px;">Overhead page AND direct call</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:#fff;border:1.5px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:14px;box-shadow:0 1px 6px rgba(0,0,0,0.06);">
+    <div style="background:#f0fdf4;border-bottom:1.5px solid #86efac;padding:14px 18px;display:flex;align-items:center;gap:12px;">
+      <span style="font-size:24px;">&#x1F52A;</span>
+      <div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:800;color:#166534;">Thoracic Surgery</div>
+        <div style="font-size:13px;color:#16a34a;font-weight:500;">Surgical airway backup — CICO situations</div>
+      </div>
+    </div>
+    <div style="padding:16px 18px;">
+      <div style="font-size:13px;color:#4a5568;margin-bottom:14px;line-height:1.6;">Thoracic surgery is the surgical backup for airway emergencies at CMC. Activate when heading toward or at a CICO situation — they need time to mobilize.</div>
+      <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:16px;">
+        <div style="display:flex;gap:10px;font-size:13px;background:#f0fdf4;border:1px solid #86efac;border-radius:8px;padding:10px 13px;line-height:1.45;"><span style="color:#16a34a;flex-shrink:0;font-weight:700;">&#9658;</span>Failed laryngoscopy &#xD7;3 with deteriorating oxygenation</div>
+        <div style="display:flex;gap:10px;font-size:13px;background:#f0fdf4;border:1px solid #86efac;border-radius:8px;padding:10px 13px;line-height:1.45;"><span style="color:#16a34a;flex-shrink:0;font-weight:700;">&#9658;</span>Proceeding to or performing surgical airway (cric / needle jet)</div>
+        <div style="display:flex;gap:10px;font-size:13px;background:#f0fdf4;border:1px solid #86efac;border-radius:8px;padding:10px 13px;line-height:1.45;"><span style="color:#16a34a;flex-shrink:0;font-weight:700;">&#9658;</span>Anticipated need for bedside tracheostomy post-cric</div>
+        <div style="display:flex;gap:10px;font-size:13px;background:#f0fdf4;border:1px solid #86efac;border-radius:8px;padding:10px 13px;line-height:1.45;"><span style="color:#16a34a;flex-shrink:0;font-weight:700;">&#9658;</span>Complex airway anatomy requiring operative intervention</div>
+      </div>
+      <div style="background:#f0fdf4;border:1px solid #86efac;border-radius:8px;padding:11px 14px;font-size:13px;color:#166534;font-weight:500;">
+        &#x1F511; Activate thoracic surgery early — don't wait until you're already in a cric.
+      </div>
+    </div>
+  </div>
+
+  <div class="disclaimer">
+    <strong>Physician Reference Tool — Not an Official Hospital Policy</strong>
+    Consult criteria are provided as clinical guidance only and do not supersede ED physician judgment.<br/>
+    <span style="font-size:10px;">ED Medical Director · CMC · v1.0 · June 2025</span>
+  </div>
+</div>
+</div>
+
 </body>
 </html>
