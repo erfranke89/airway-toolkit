@@ -554,13 +554,21 @@ header {
 .ic-orange { background: #ffedd5; }
 .ic-yellow { background: #fef9c3; }
 
+/* Readable at arm's length on QR-opened phone screens. */
+.card-desc { font-size: 15px; }
+.p-scenario, .p-detail, .hfnc-banner ul, .box, .step-detail, .mnemonic-sub, .mnemonic-row, .comp-table, .cl-item { font-size: 15px; }
+.video-title { font-size: 16px; }
+.proc-image figcaption, .disclaimer { font-size: 13px; }
+.pill { font-size: 14px; }
+.page-inner [style*="font-size:13px"] { font-size: 15px !important; }
+
 @media (max-width: 480px) {
   .quick-nav { display: block; }
   .header-title h1 { font-size: 20px; }
   .page-heading h2 { font-size: 26px; }
   .card-title { font-size: 17px; }
   .step-title { font-size: 15px; }
-  .step-detail { font-size: 13px; }
+  .step-detail { font-size: 15px; }
   .p-name { font-size: 16px; }
   .p-num { font-size: 26px; }
   .tab-btn { font-size: 14px; padding: 12px 14px 10px; min-height: 44px; }
@@ -572,7 +580,7 @@ header {
   .logo-name { font-size: 13px; }
   .video-link { padding: 11px 12px; }
   .mnemonic-letter { font-size: 20px; }
-  .mnemonic-row { font-size: 13px; }
+  .mnemonic-row { font-size: 15px; }
   .step-n { width: 28px; height: 28px; }
 }
 </style>
@@ -1309,7 +1317,7 @@ function buildChecklist() {
       const isSubItem = item.startsWith('→');
       return `<div class="cl-item" style="${isSubItem ? 'padding-left:12px;' : ''}">
         <div class="cb" id="cb-${key}-${i}" onclick="toggleCb('${key}',${i});event.stopPropagation()"></div>
-        <span style="${isSubItem ? 'color:#6b7280;font-size:12px;' : ''}">${item}</span>
+        <span style="${isSubItem ? 'color:#6b7280;font-size:14px;' : ''}">${item}</span>
       </div>`;
     }).join('');
   });
