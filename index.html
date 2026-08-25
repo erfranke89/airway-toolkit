@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="theme-color" content="#003087"/>
 <title>ED Difficult Airway Algorithm</title>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;1,700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet"/>
 <style>
@@ -101,6 +102,13 @@ header {
 .tab-btn:hover { color: var(--blue); background: rgba(0,48,135,0.04); }
 .tab-btn:active { background: rgba(0,48,135,0.08); }
 .tab-btn.active { color: var(--blue); border-bottom-color: var(--red); font-weight: 800; background: #fff; }
+.tab-btn { min-height: 44px; }
+.tab-btn:focus-visible, .reset-btn:focus-visible, .card-header:focus-visible, .cb:focus-visible, .quick-nav select:focus-visible { outline: 3px solid #f59e0b; outline-offset: 2px; }
+.skip-link { position: fixed; left: 10px; top: -60px; z-index: 999; background: #fff; color: var(--blue); padding: 10px 14px; border-radius: 6px; font-weight: 700; }
+.skip-link:focus { top: 10px; }
+.quick-nav { display: none; padding: 8px 14px; background: #f8fafc; border-bottom: 1px solid var(--border); }
+.quick-nav label { font-size: 13px; font-weight: 700; color: var(--text2); }
+.quick-nav select { min-height: 44px; width: 100%; margin-top: 4px; padding: 8px 10px; border: 1.5px solid var(--blue); border-radius: 8px; background: #fff; color: var(--text); font: inherit; }
 
 /* ── PAGES ─────────────────────────────────────── */
 .page { display: none; }
@@ -547,6 +555,7 @@ header {
 .ic-yellow { background: #fef9c3; }
 
 @media (max-width: 480px) {
+  .quick-nav { display: block; }
   .header-title h1 { font-size: 20px; }
   .page-heading h2 { font-size: 26px; }
   .card-title { font-size: 17px; }
@@ -554,7 +563,7 @@ header {
   .step-detail { font-size: 13px; }
   .p-name { font-size: 16px; }
   .p-num { font-size: 26px; }
-  .tab-btn { font-size: 14px; padding: 12px 14px 10px; }
+  .tab-btn { font-size: 14px; padding: 12px 14px 10px; min-height: 44px; }
   .page-inner { padding: 18px 14px 48px; }
   .card-body { padding: 16px 14px 18px; }
   .priority-item { padding: 12px 13px; }
@@ -569,6 +578,7 @@ header {
 </style>
 </head>
 <body>
+<a class="skip-link" href="#main-content">Skip to clinical content</a>
 
 <!-- HEADER -->
 <header>
@@ -590,8 +600,8 @@ header {
     <span>ED Difficult Airway Algorithm</span>
     <span>v1.0 &nbsp;·&nbsp; Updated June 2025</span>
   </div>
-  <nav class="tab-nav" id="tabNav">
-    <button class="tab-btn active" onclick="showTab('mnemonics',this)">Mnemonics</button>
+  <nav class="tab-nav" id="tabNav" aria-label="Toolkit sections">
+    <button class="tab-btn active" data-tab="mnemonics" onclick="showTab('mnemonics',this)">Mnemonics</button>
     <button class="tab-btn" onclick="showTab('preox',this)">Pre-Oxygenation</button>
     <button class="tab-btn" onclick="showTab('dsi',this)">DSI</button>
     <button class="tab-btn" onclick="showTab('heliox',this)">Heliox</button>
@@ -601,13 +611,20 @@ header {
     <button class="tab-btn" onclick="showTab('checklist',this)">RSI Checklist</button>
     <button class="tab-btn" onclick="showTab('whoto',this)">Who to Call?</button>
   </nav>
+  <div class="quick-nav">
+    <label for="sectionJump">Jump to a section</label>
+    <select id="sectionJump" onchange="showTab(this.value)">
+      <option value="mnemonics">Mnemonics</option><option value="preox">Pre-Oxygenation</option><option value="dsi">DSI</option><option value="heliox">Heliox</option><option value="aintree">Aintree</option><option value="cric">Cricothyrotomy</option><option value="needle">Needle Jet</option><option value="checklist">RSI Checklist</option><option value="whoto">Who to Call?</option>
+    </select>
+  </div>
 </header>
 
 <!-- ══════════════════════════════════════════════ -->
 <!-- PAGE: MNEMONICS -->
 <!-- ══════════════════════════════════════════════ -->
-<div class="page active" id="page-mnemonics">
+<div class="page active" id="page-mnemonics" tabindex="-1">
 <div class="page-inner">
+  <span id="main-content"></span>
   <div class="page-heading">
     <h2>Pre-Intubation Mnemonics</h2>
     <p>Cognitive framework — assess, optimize, equip, intubate</p>
@@ -1197,12 +1214,20 @@ header {
 
 <script>
 // ── TABS ──────────────────────────────────────────
-function showTab(id, btn) {
+function showTab(id, btn, options = {}) {
+  const page = document.getElementById('page-' + id);
+  const targetBtn = btn || document.querySelector(`.tab-btn[data-tab="${id}"]`) || [...document.querySelectorAll('.tab-btn')].find(b => b.getAttribute('onclick')?.includes(`'${id}'`));
+  if (!page || !targetBtn) return;
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('page-' + id).classList.add('active');
-  btn.classList.add('active');
-  window.scrollTo(0, 0);
+  document.querySelectorAll('.tab-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-current','false'); });
+  page.classList.add('active');
+  targetBtn.classList.add('active');
+  targetBtn.setAttribute('aria-current','page');
+  targetBtn.scrollIntoView({ behavior: options.instant ? 'auto' : 'smooth', block: 'nearest', inline: 'center' });
+  const jump = document.getElementById('sectionJump');
+  if (jump) jump.value = id;
+  if (location.hash !== '#' + id) history.replaceState(null, '', '#' + id);
+  if (!options.noScroll) window.scrollTo({ top: 0, behavior: options.instant ? 'auto' : 'smooth' });
 }
 
 
@@ -1290,12 +1315,38 @@ function buildChecklist() {
   });
 }
 function toggleCb(key, i) {
-  document.getElementById(`cb-${key}-${i}`).classList.toggle('checked');
+  const box = document.getElementById(`cb-${key}-${i}`);
+  box.classList.toggle('checked');
+  box.setAttribute('aria-checked', String(box.classList.contains('checked')));
 }
 function resetChecklist() {
-  document.querySelectorAll('.cb').forEach(b => b.classList.remove('checked'));
+  document.querySelectorAll('.cb').forEach(b => { b.classList.remove('checked'); b.setAttribute('aria-checked','false'); });
 }
 buildChecklist();
+
+// Accessibility and direct-link support for the single-page QR experience.
+document.querySelectorAll('.tab-btn').forEach((button, index) => {
+  const match = button.getAttribute('onclick')?.match(/showTab\('([^']+)'/);
+  if (match) button.dataset.tab = match[1];
+  button.setAttribute('aria-current', index === 0 ? 'page' : 'false');
+});
+document.querySelectorAll('.card-header').forEach((header, index) => {
+  const body = header.closest('.card')?.querySelector('.card-body');
+  if (!body) return;
+  body.id ||= `card-panel-${index + 1}`;
+  header.setAttribute('role','button'); header.setAttribute('tabindex','0');
+  header.setAttribute('aria-controls', body.id); header.setAttribute('aria-expanded','false');
+  header.addEventListener('click', () => header.setAttribute('aria-expanded', String(header.closest('.card').classList.contains('open'))));
+  header.addEventListener('keydown', event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); header.click(); } });
+});
+document.querySelectorAll('.cb').forEach(box => {
+  box.setAttribute('role','checkbox'); box.setAttribute('tabindex','0'); box.setAttribute('aria-checked','false');
+  box.setAttribute('aria-label', box.nextElementSibling?.textContent?.trim() || 'Checklist item');
+  box.addEventListener('keydown', event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); box.click(); } });
+});
+const initialTab = location.hash.slice(1);
+if (initialTab && document.getElementById('page-' + initialTab)) showTab(initialTab, null, { instant: true, noScroll: true });
+window.addEventListener('hashchange', () => { const id = location.hash.slice(1); if (document.getElementById('page-' + id)) showTab(id, null, { instant: true }); });
 </script>
 
 <div class="page" id="page-whoto">
